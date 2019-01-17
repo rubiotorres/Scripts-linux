@@ -64,13 +64,14 @@ then
 	echo "Não foi possível adicionar o repositório chrome."
     	exit 1
 fi
-atualizar()
+atualizar
 echo Instalando o chrome...
 if ! sudo dpkg -i google-chrome-stable_current_amd64.deb
 then
 	echo "Não foi possível instalar o chrome."
     	exit 1
 fi
+rm google-chrome-stable_current_amd64.deb
 #Instalação do grub customizer-----------------------------------------
 echo Adicionando o repositório grub customizer...
 if ! sudo add-apt-repository ppa:danielrichter2007/grub-customizer
@@ -88,4 +89,32 @@ fi
 
 echo Baixando imagem da grub...
 wget -c -P  https://imgur.com/download/1AC8l7H
-echo "Instalação finalizada" a
+
+#instalando JDK e JRE
+if ! sudo apt-get install default-jre
+then
+	echo "Não foi possivel instalar JRE"
+	exit 1
+fi
+if ! sudo apt-get install default-jdk
+then
+	echo "Não foi possivel instalar JDK"
+	exit 1
+fi
+#Instalação do Astah ----------------------------------------------
+echo Adicionando o repositório Astah...
+if ! sudo wget http://cdn.change-vision.com/files/astah-uml_8.0.0.d641d4-0_all.deb
+then
+	echo "Não foi possível adicionar o repositório Astah."
+    	exit 1
+fi
+atualizar
+echo Instalando o Astah...
+if ! sudo dpkg -i astah-professional_8.0.0.d641d4-0_all.deb
+then
+	echo "Não foi possível instalar o Astah."
+    	exit 1
+fi
+rm astah-professional_8.0.0.d641d4-0_all.deb
+
+echo "Instalação finalizada" 
