@@ -78,7 +78,7 @@ then
 	echo "Não foi possível adicionar o repositório grub customizer."
     	exit 1
 fi
-
+atualizar
 echo Instalando o grub customizer...
 if ! sudo apt-get install grub-customizer
 then
@@ -88,9 +88,4 @@ fi
 
 echo Baixando imagem da grub...
 wget -c -P  https://imgur.com/download/1AC8l7H
-if ! sudo apt-get install grub-customizer
-then
-	echo "Não foi possível baixar a imagem."
-    	exit 1
-fi
 echo "Instalação finalizada" a
