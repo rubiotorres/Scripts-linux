@@ -110,11 +110,27 @@ then
 fi
 atualizar
 echo Instalando o Astah...
-if ! sudo dpkg -i astah-professional_8.0.0.d641d4-0_all.deb
+if ! sudo dpkg -i astah-professional_*.deb
 then
 	echo "Não foi possível instalar o Astah."
     	exit 1
 fi
-rm astah-professional_8.0.0.d641d4-0_all.deb
+rm astah-professional_*.deb
+
+#Instalação do Visual studio code ----------------------------------------------
+echo Adicionando o repositório Visual studio code...
+if ! sudo wget https://go.microsoft.com/fwlink/?LinkID=760868
+then
+	echo "Não foi possível adicionar o repositório Visual studio code."
+    	exit 1
+fi
+atualizar
+echo Instalando o Astah...
+if ! sudo dpkg -i code_*.deb
+then
+	echo "Não foi possível instalar o Visual studio code."
+    	exit 1
+fi
+rm code_*.deb
 
 echo "Instalação finalizada" 
