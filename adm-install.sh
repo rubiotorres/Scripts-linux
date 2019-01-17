@@ -15,14 +15,41 @@ function atualizar(){
 	fi
 	echo "Atualização de pacotes feita com sucesso"
 }
+if whiptail --title "Tipo de instalação" --yes-button "Completa" --no-button "Personalizada"  --yesno "Escolha o tipo de instalação desejada" --fb 10 50
+then
+   echo "Você escolheu a instalação Completa."
+
+else
+   cidade=$(whiptail --title "Listagem de Cidades" --separate-output --checklist --fb \
+"Quais cidades deseja visitar?" 15 50 5 \
+"Londres" "Inglaterra" ON \
+"Berlim" "Alemanha" OFF \
+"Toronto" "Canadá" OFF \
+"Abu Dhabi" "Emirados Árabes" OFF \
+"Pequim" "China" OFF 3>&1 1>&2 2>&3)
+
+status=$?
+if [ $status = 0 ]
+then
+   echo "As cidades escolhidas foram: " $cidade
+else
+   echo "Você não escolheu nenhuma cidade."
+fi
+fi
+
+
+
+
+
 #Instalação do video lan ----------------------------------------
+atualizar
 echo Adicionando o repositório videolan...
 if ! 	sudo add-apt-repository ppa:videolan/master-daily 
 then
 	echo "Não foi possível adicionar o repositório videolan."
     	exit 1
 fi
-atualizar()
+atualizar
 echo Instalando o videolan...
 if ! sudo apt-get install vlc -y		
 then
@@ -56,6 +83,14 @@ echo Instalando o grub customizer...
 if ! sudo apt-get install grub-customizer
 then
 	echo "Não foi possível instalar o grub customizer."
+    	exit 1
+fi
+
+echo Baixando imagem da grub...
+wget -c -P  https://imgur.com/download/1AC8l7H
+if ! sudo apt-get install grub-customizer
+then
+	echo "Não foi possível baixar a imagem."
     	exit 1
 fi
 echo "Instalação finalizada" a
